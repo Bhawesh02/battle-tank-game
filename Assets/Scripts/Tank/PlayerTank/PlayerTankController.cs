@@ -48,13 +48,12 @@ public class PlayerTankController
     public void PlayerDead()
     {
         DestoryEverything.Instance.PlayerTank = TankView;
-        EventService.Instance.OnPlayerDead?.Invoke();
         DestoryEverything.Instance.DestroyEverythingInGame();
     }
     public void FireBullet(Vector3 pos)
     {
         BulletService.Instance.GenerateBullet(pos,TankView.transform.rotation);
-        EventService.Instance.OnPlayerBulletFire?.Invoke();
+        BulletService.Instance.OnPlayerBulletFire?.Invoke();
     }
 
 }
