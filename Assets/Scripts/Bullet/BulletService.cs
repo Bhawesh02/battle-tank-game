@@ -10,6 +10,7 @@ public class BulletService : MonoSingletonGeneric<BulletService>
     [SerializeField]
     private BulletScriptableObjectList bulletScriptableObjectList;
 
+    public Action OnPlayerBulletFire;
     
     private BulletPoolService bulletPool;
     private void Start()
