@@ -1,5 +1,5 @@
 
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyTankController 
@@ -42,6 +42,7 @@ public class EnemyTankController
 
     public void TankDestroy()
     {
+        tankView.currentState.OnStateExit();
         DestoryEverything.Instance.DestroyGameObject(tankView.gameObject);
     }
 
@@ -57,4 +58,6 @@ public class EnemyTankController
     {
         tankView.transform.position = Vector3.MoveTowards(tankView.transform.position, targetPos, tankModel.MovementSpeed * Time.deltaTime);
     }
+
+    
 }

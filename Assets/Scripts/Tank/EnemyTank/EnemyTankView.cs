@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyTankView : MonoBehaviour, ITakeDamage
@@ -17,7 +18,7 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
 
     public List<GameObject> PetrolPoints;
 
-    public EnemyTankController EnemyTankController { get; private set; }
+    public EnemyTankController TankController { get; private set; }
     public EnemyTankScriptableObject EnemyTankScriptableObject;
 
     public GameObject BulletShooter;
@@ -27,7 +28,7 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
     {
         TankService.Instance.EnemyTanks.Add(this);
         EnemyTankModel model = new(EnemyTankScriptableObject);
-        EnemyTankController = new(model, this);
+        TankController = new(model, this);
         DestoryEverything.Instance.EnemyTanks.Add(this);
         ChangeState(startState);
         EventService.Instance.PlayerTankSpawned += SetPlayerTank;
@@ -39,7 +40,7 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
     }
     private void Update()
     {
-        EnemyTankController.ChangeStateBasedOnPlayer();
+        TankController.ChangeStateBasedOnPlayer();
     }
     public void ChangeState(EnemyTankState state)
     {
@@ -53,6 +54,21 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
 
     public void TakeDamage(BulletModel bulletModel)
     {
-        EnemyTankController.TakeDamage(bulletModel.Power);
+        TankController.TakeDamage(bulletModel.Power);
+    }
+    void OnDrawGizmos()
+    {
+        if (!UnityEditor.EditorApplication.isPlaying)
+        {
+            return;
+        }
+
+        if (TankController ==  null)
+        {
+            return;
+        }
+        Debug.Log("Draw");
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, TankController.tankModel.FightRadius);
     }
 }

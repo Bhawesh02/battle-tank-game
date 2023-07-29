@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,12 +8,13 @@ public class EnemyTankFightState : EnemyTankState, IBulletFirer
     private PlayerTankView playerTank;
     private readonly int fireRate = 2;
 
-    private CancellationTokenSource cancellationTokenSource;
+    private static CancellationTokenSource cancellationTokenSource;
     public override void OnStateEnter()
     {
         base.OnStateEnter();
         playerTank = tankView.PlayerTank;
         cancellationTokenSource = new CancellationTokenSource();
+        Debug.Log("Fight");
         FireBullet();
     }
     private void Update()
@@ -26,11 +26,7 @@ public class EnemyTankFightState : EnemyTankState, IBulletFirer
     private async void FireBullet()
     {
         try {
-            if(tankView == null)
-            {
-                //Tank Destroyed do nothing
-                return;
-            }
+            //Debug.Log("Bullet Fired");
             BulletService.Instance.GenerateBullet(tankView.BulletShooter.transform.position, tankView.transform.rotation,this);
             int waitTime = 1000 / fireRate;
             await Task.Delay(waitTime, cancellationTokenSource.Token);
@@ -43,5 +39,23 @@ public class EnemyTankFightState : EnemyTankState, IBulletFirer
     {
         base.OnStateExit();
         cancellationTokenSource.Cancel();
+        Debug.Log("No more Fight!");
     }
+#if UNITY_EDITOR
+    [UnityEditor.InitializeOnLoadMethod]
+    private static void OnLoad()
+    {
+        UnityEditor.EditorApplication.playModeStateChanged +=
+            (change) =>
+            {
+                if (
+                    change == UnityEditor.PlayModeStateChange.ExitingPlayMode ||
+                    change == UnityEditor.PlayModeStateChange.ExitingEditMode
+                )
+                {
+                    cancellationTokenSource.Cancel();
+                }
+            };
+    }
+#endif
 }

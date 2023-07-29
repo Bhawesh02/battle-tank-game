@@ -42,6 +42,11 @@ public class BulletView : MonoBehaviour
         {
             return;
         }
+        if (other.GetComponent<BulletView>()!=null)
+        {
+            //Debug.Log("Collided with other bullet");
+            return;
+        }
         ITakeDamage ob = other.gameObject.GetComponent<ITakeDamage>();
         ob?.TakeDamage(BulletModel);
         BulletService.Instance.DeleteBullet(bulletController);

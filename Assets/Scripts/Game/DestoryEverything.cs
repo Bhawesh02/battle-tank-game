@@ -29,7 +29,7 @@ public class DestoryEverything : MonoSingletonGeneric<DestoryEverything>
             DestroyGameObject(PlayerTank.gameObject);
             foreach (EnemyTankView EnemyTank in EnemyTanks)
             {
-                EnemyTank.EnemyTankController.TankDestroy();
+                EnemyTank.TankController.TankDestroy();
             }
             foreach (BulletView BuletView in BulletService.Instance.bullets)
             {
