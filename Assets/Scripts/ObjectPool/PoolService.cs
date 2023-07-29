@@ -1,6 +1,5 @@
-using System;
+
 using System.Collections.Generic;
-using UnityEngine;
 
 public class PoolService<T> : SingletonGeneric<PoolService<T>> where T : class
 {
@@ -44,13 +43,5 @@ public class PoolService<T> : SingletonGeneric<PoolService<T>> where T : class
         PooledItem<T> usedItem = pooledItems.Find(x => x.Item.Equals(item));
         usedItem.IsUsed = false;
     }
-
-
-
-
-
-
-
-
 
 }

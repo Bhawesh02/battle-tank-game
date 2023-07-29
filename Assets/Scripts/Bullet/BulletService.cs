@@ -10,6 +10,7 @@ public class BulletService : MonoSingletonGeneric<BulletService>
     [SerializeField]
     private BulletScriptableObjectList bulletScriptableObjectList;
 
+
     
     private BulletPoolService bulletPool;
     private void Start()
@@ -20,8 +21,8 @@ public class BulletService : MonoSingletonGeneric<BulletService>
     public void GenerateBullet(Vector3 pos,Quaternion rotation)
     {
         BulletModel = new(bulletScriptableObjectList.bullets[0]);
-        //BulletController bulletController = new(bulletModel, bulletPrefab, pos, rotation);
         BulletController bulletController = bulletPool.GetBullet();
+        //BulletController bulletController = BulletPoolService.Instance.GetBullet();
         bulletController.SetPosition(pos);
         bulletController.SetRotation(rotation);
         bulletController.BulletView.gameObject.SetActive(true);

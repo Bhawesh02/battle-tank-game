@@ -38,9 +38,9 @@ public class EnemyTankController
             tankView.ChangeState(tankView.petrolState);
     }
 
-    private void TankDestroy()
+    public void TankDestroy()
     {
-        GameObject.Destroy(tankView.gameObject);
+        DestoryEverything.Instance.DestroyGameObject(tankView.gameObject);
     }
 
     public Quaternion RotateTank(Vector3 targetPos)

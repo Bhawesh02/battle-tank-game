@@ -20,7 +20,7 @@ public class DestoryEverything : MonoSingletonGeneric<DestoryEverything>
         DestroyGameObject(PlayerTank.gameObject);
         foreach (EnemyTankView EnemyTank in EnemyTanks)
         {
-            DestroyGameObject(EnemyTank.gameObject);
+            EnemyTank.EnemyTankController.TankDestroy();
         }
         foreach(GameObject item in EnviromentItems)
         {
@@ -29,7 +29,7 @@ public class DestoryEverything : MonoSingletonGeneric<DestoryEverything>
         }
     }
 
-    private async void DestroyGameObject(GameObject gameObject)
+    public async void DestroyGameObject(GameObject gameObject)
     {
         Destroy(gameObject);
         ParticleSystem explosion = Instantiate<ParticleSystem>(TankExplosion, gameObject.transform.position, TankExplosion.transform.rotation);

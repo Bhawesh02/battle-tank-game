@@ -75,5 +75,7 @@ public class AchivementService : MonoSingletonGeneric<AchivementService>
     private void OnDestroy()
     {
         EventService.Instance.OnPlayerBulletFire -= AchivementService_OnPlayerBulletFire;
+        EventService.Instance.OnPlayerDead -= AchivementService_OnPlayerDead;
+        EventService.Instance.OnPlayerEscapeFromChasingTank -= AchivementService_OnPlayerEscapeFromChasingTank;
     }
 }

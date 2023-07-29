@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemyTankFightState : EnemyTankState
 {
     private PlayerTankView playerTank;
-    private int fireRate = 2;
+    private readonly int fireRate = 2;
 
     private CancellationTokenSource cancellationTokenSource;
     public override void OnStateEnter()
@@ -26,6 +26,11 @@ public class EnemyTankFightState : EnemyTankState
     private async void FireBullet()
     {
         try {
+            if(tankView == null)
+            {
+                //Tank Destroyed do nothing
+                return;
+            }
             BulletService.Instance.GenerateBullet(tankView.BulletShooter.transform.position, tankView.transform.rotation);
             int waitTime = 1000 / fireRate;
             await Task.Delay(waitTime, cancellationTokenSource.Token);
