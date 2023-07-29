@@ -21,6 +21,10 @@ public class BulletController
     {
         BulletView.transform.rotation = rotation;
     }
+    public void SetBulletFirer(IBulletFirer bulletFirer)
+    {
+        BulletModel.BulletFirer = bulletFirer;
+    }
     public void MoveForword()
     {
         BulletView.Rb.velocity = BulletModel.Speed * Time.deltaTime * BulletView.transform.forward;

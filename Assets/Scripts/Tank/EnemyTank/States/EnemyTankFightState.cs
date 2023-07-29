@@ -31,7 +31,7 @@ public class EnemyTankFightState : EnemyTankState
                 //Tank Destroyed do nothing
                 return;
             }
-            BulletService.Instance.GenerateBullet(tankView.BulletShooter.transform.position, tankView.transform.rotation);
+            BulletService.Instance.GenerateBullet(tankView.BulletShooter.transform.position, tankView.transform.rotation,tankView);
             int waitTime = 1000 / fireRate;
             await Task.Delay(waitTime, cancellationTokenSource.Token);
             FireBullet();

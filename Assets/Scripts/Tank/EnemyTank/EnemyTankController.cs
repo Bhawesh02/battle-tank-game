@@ -23,6 +23,8 @@ public class EnemyTankController
 
     public void ChangeStateBasedOnPlayer()
     {
+        if (tankView.PlayerTank == null)
+            return;
         float distanceToPlayer = Vector3.Distance(tankView.transform.position, tankView.PlayerTank.transform.position);
         if (distanceToPlayer > tankModel.FightRadius && distanceToPlayer <= tankModel.ChaseRadius && tankView.currentState != tankView.chaseState)
         {

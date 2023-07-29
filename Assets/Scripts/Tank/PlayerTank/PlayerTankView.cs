@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTankView : MonoBehaviour
+public class PlayerTankView : MonoBehaviour, IBulletFirer, ITakeDamage
 {
     public PlayerTankController TankController { get;private set; }
 
@@ -52,11 +52,11 @@ public class PlayerTankView : MonoBehaviour
         {
             TankController.PlayerDead();
         }
-        else if (collision.gameObject.GetComponent<BulletView>())
-        {
-            TankController.TakeDamage(collision.gameObject.GetComponent<BulletView>());
-        }
+        
     }
 
-    
+    public void TakeDamage(BulletModel bulletModel)
+    {
+        TankController.TakeDamage(bulletModel);
+    }
 }

@@ -1,8 +1,7 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class TankService : MonoSingletonGeneric<TankService>
 {
@@ -10,8 +9,8 @@ public class TankService : MonoSingletonGeneric<TankService>
     public PlayerTankScriptableObject playerTankScriptableObject;
     [SerializeField]
     private BulletView bulletPrefab;
-    [SerializeField]
-    private EnemyTankView enemyTank;
+
+    public List<EnemyTankView> EnemyTanks;
     public PlayerTankView PlayerTank { get;private set; }
 
     void Start()
@@ -21,12 +20,13 @@ public class TankService : MonoSingletonGeneric<TankService>
 
    
 
-    private void SpawnPlayerTank()
+    private async void SpawnPlayerTank()
     {
         PlayerTankModel model = new(playerTankScriptableObject);
         PlayerTankController controller = new(model, playerTankView,transform.position);
         PlayerTank = controller.TankView;
-        enemyTank.SetPlayerTank();
+        await Task.Delay(500);
+        EventService.Instance.PlayerTankSpawned?.Invoke();
     }
 
 }

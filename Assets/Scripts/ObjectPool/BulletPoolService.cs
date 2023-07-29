@@ -10,6 +10,7 @@ public class BulletPoolService : PoolService<BulletController>
     protected override BulletController CreateItem()
     {
         BulletController bulletControler = new(BulletService.Instance.BulletModel, BulletService.Instance.BulletPrefab);
+        EventService.Instance.NewBulletCreated?.Invoke(bulletControler);
         return bulletControler;
     }
     public override void ReturnItem(BulletController bulletController)

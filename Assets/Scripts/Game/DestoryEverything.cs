@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -12,29 +13,73 @@ public class DestoryEverything : MonoSingletonGeneric<DestoryEverything>
     public ParticleSystem TankExplosion;
     public int timeForTankExplosion = 2000;
 
+    private CancellationTokenSource cancellationTokenSource;
 
+    private void Start()
+    {
+        EventService.Instance.OnPlayerDead += DestroyEverythingInGame;
+        cancellationTokenSource = new CancellationTokenSource();
+    }
 
     public async void DestroyEverythingInGame()
     {
-        await Task.Delay(500);
-        DestroyGameObject(PlayerTank.gameObject);
-        foreach (EnemyTankView EnemyTank in EnemyTanks)
+        try
         {
-            EnemyTank.EnemyTankController.TankDestroy();
+            await Task.Delay(500);
+            DestroyGameObject(PlayerTank.gameObject);
+            foreach (EnemyTankView EnemyTank in EnemyTanks)
+            {
+                EnemyTank.EnemyTankController.TankDestroy();
+            }
+            foreach (BulletView BuletView in BulletService.Instance.bullets)
+            {
+                Destroy(BuletView.gameObject);
+                await Task.Delay(500, cancellationTokenSource.Token);
+            }
+            foreach (GameObject item in EnviromentItems)
+            {
+                Destroy(item);
+                await Task.Delay(1000, cancellationTokenSource.Token);
+            }
         }
-        foreach(GameObject item in EnviromentItems)
+        catch 
         {
-            Destroy(item);
-            await Task.Delay(1000);
+            //Cancel all Destroy
         }
     }
 
     public async void DestroyGameObject(GameObject gameObject)
     {
-        Destroy(gameObject);
-        ParticleSystem explosion = Instantiate<ParticleSystem>(TankExplosion, gameObject.transform.position, TankExplosion.transform.rotation);
-        explosion.Play();
-        await Task.Delay(timeForTankExplosion);
-        Destroy(explosion.gameObject);
+        try {
+            Vector3 explosionPos = gameObject.transform.position;
+            Destroy(gameObject);
+            ParticleSystem explosion = Instantiate<ParticleSystem>(TankExplosion, explosionPos, TankExplosion.transform.rotation);
+            explosion.Play();
+            await Task.Delay(timeForTankExplosion, cancellationTokenSource.Token);
+            Destroy(explosion.gameObject);
+        }
+        catch 
+        {
+            //Cancel Destroy
+        }
     }
+
+
+#if UNITY_EDITOR
+    [UnityEditor.InitializeOnLoadMethod]
+    private static void OnLoad()
+    {
+        UnityEditor.EditorApplication.playModeStateChanged +=
+            (change) =>
+            {
+                if (
+                    change == UnityEditor.PlayModeStateChange.ExitingPlayMode ||
+                    change == UnityEditor.PlayModeStateChange.ExitingEditMode
+                )
+                {
+                    DestoryEverything.Instance.cancellationTokenSource.Cancel();
+                }
+            };
+    }
+#endif
 }

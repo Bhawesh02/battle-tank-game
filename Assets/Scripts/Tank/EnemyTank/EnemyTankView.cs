@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTankView : MonoBehaviour
+public class EnemyTankView : MonoBehaviour, IBulletFirer, ITakeDamage
 {
     public EnemyTankIdleState idleState;
     public EnemyTankChaseState chaseState;
@@ -12,7 +12,8 @@ public class EnemyTankView : MonoBehaviour
     public EnemyTankState startState;
     public EnemyTankState currentState;
 
-    public PlayerTankView PlayerTank { get; private set; }
+    
+    public PlayerTankView PlayerTank;
 
     public List<GameObject> PetrolPoints;
 
@@ -24,11 +25,12 @@ public class EnemyTankView : MonoBehaviour
 
     private void Start()
     {
-
+        TankService.Instance.EnemyTanks.Add(this);
         EnemyTankModel model = new(EnemyTankScriptableObject);
         EnemyTankController = new(model, this);
         DestoryEverything.Instance.EnemyTanks.Add(this);
         ChangeState(startState);
+        EventService.Instance.PlayerTankSpawned += SetPlayerTank;
     }
 
     public void SetPlayerTank()
@@ -48,12 +50,9 @@ public class EnemyTankView : MonoBehaviour
         currentState = state;
         currentState.OnStateEnter();
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        BulletView bulletView = collision.gameObject.GetComponent<BulletView>();
-        if (bulletView == null)
-            return;
-        EnemyTankController.TakeDamage(bulletView.BulletModel.Power);
 
+    public void TakeDamage(BulletModel bulletModel)
+    {
+        EnemyTankController.TakeDamage(bulletModel.Power);
     }
 }

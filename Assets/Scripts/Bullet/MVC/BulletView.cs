@@ -1,5 +1,6 @@
 
 using Newtonsoft.Json.Bson;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class BulletView : MonoBehaviour
@@ -35,10 +36,15 @@ public class BulletView : MonoBehaviour
         bulletController.MoveForword();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.GetComponent<IBulletFirer>() == BulletModel.BulletFirer)
+        {
+            return;
+        }
+        ITakeDamage ob = other.gameObject.GetComponent<ITakeDamage>();
+        ob?.TakeDamage(BulletModel);
         BulletService.Instance.DeleteBullet(bulletController);
     }
 
-    
 }

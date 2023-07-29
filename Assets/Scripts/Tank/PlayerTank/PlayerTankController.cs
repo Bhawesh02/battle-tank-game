@@ -1,6 +1,5 @@
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 [Serializable]
 public class PlayerTankController 
@@ -37,9 +36,9 @@ public class PlayerTankController
         tankRigidBoy.MoveRotation(tankRigidBoy.rotation * deltaRotaion);
     }
 
-    public void TakeDamage(BulletView bullet)
+    public void TakeDamage(BulletModel bulletModel)
     {
-        TankModel.Health -= bullet.BulletModel.Power;
+        TankModel.Health -= bulletModel.Power;
         if (TankModel.Health <= 0)
         {
             PlayerDead();
@@ -47,13 +46,11 @@ public class PlayerTankController
     }
     public void PlayerDead()
     {
-        DestoryEverything.Instance.PlayerTank = TankView;
         EventService.Instance.OnPlayerDead?.Invoke();
-        DestoryEverything.Instance.DestroyEverythingInGame();
     }
     public void FireBullet(Vector3 pos)
     {
-        BulletService.Instance.GenerateBullet(pos,TankView.transform.rotation);
+        BulletService.Instance.GenerateBullet(pos,TankView.transform.rotation,TankView);
         EventService.Instance.OnPlayerBulletFire?.Invoke();
     }
 
