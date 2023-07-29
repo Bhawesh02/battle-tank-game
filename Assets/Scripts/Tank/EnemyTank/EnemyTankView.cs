@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTankView : MonoBehaviour, IBulletFirer, ITakeDamage
+public class EnemyTankView : MonoBehaviour, ITakeDamage
 {
     public EnemyTankIdleState idleState;
     public EnemyTankChaseState chaseState;

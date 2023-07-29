@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class EnemyTankFightState : EnemyTankState
+public class EnemyTankFightState : EnemyTankState, IBulletFirer
 {
     private PlayerTankView playerTank;
     private readonly int fireRate = 2;
@@ -31,7 +31,7 @@ public class EnemyTankFightState : EnemyTankState
                 //Tank Destroyed do nothing
                 return;
             }
-            BulletService.Instance.GenerateBullet(tankView.BulletShooter.transform.position, tankView.transform.rotation,tankView);
+            BulletService.Instance.GenerateBullet(tankView.BulletShooter.transform.position, tankView.transform.rotation,this);
             int waitTime = 1000 / fireRate;
             await Task.Delay(waitTime, cancellationTokenSource.Token);
             FireBullet();

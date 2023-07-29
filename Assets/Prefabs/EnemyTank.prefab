@@ -265,8 +265,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3499431174280969274}
-  m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.0000000020777833, y: 0.99547076, z: -0.000000021756726, w: 0.0950683}
+  m_LocalPosition: {x: 0.009762998, y: 0, z: -0.1186111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -274,7 +274,7 @@ Transform:
   - {fileID: 916414271830034024}
   m_Father: {fileID: 6333323080335493642}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 169.09, z: 0}
 --- !u!54 &8672104665905034611
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -347,8 +347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff095a4c255fd243bd4b899c42e23a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
-  rotationSpeed: 2
   nextPetrolPointIndex: 0
 --- !u!114 &6796041816388751895
 MonoBehaviour:
@@ -392,10 +390,14 @@ MonoBehaviour:
   petrolState: {fileID: 7533396359859745044}
   startState: {fileID: 2094117780210870817}
   currentState: {fileID: 0}
+  PlayerTank: {fileID: 0}
   PetrolPoints:
   - {fileID: 7620065947978584013}
   - {fileID: 5987654607512188688}
   - {fileID: 792851415730763884}
+  EnemyTankScriptableObject: {fileID: 11400000, guid: 0a593097d4d825d4395097e4db8c545a,
+    type: 2}
+  BulletShooter: {fileID: 8700117157187827981}
 --- !u!1 &3501805868789005222
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +578,7 @@ Transform:
   - {fileID: 2812991299535161119}
   - {fileID: 115143424496106237}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7265429981312569775
 GameObject:
@@ -717,7 +719,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8700117157187827981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.529, z: 1.462}
+  m_LocalPosition: {x: -0, y: 1.515, z: 1.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

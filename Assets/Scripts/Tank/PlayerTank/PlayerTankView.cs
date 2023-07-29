@@ -13,6 +13,7 @@ public class PlayerTankView : MonoBehaviour, IBulletFirer, ITakeDamage
 
     public PlayerTankModel tankModel;
 
+    public bool IsInvicible ;
 
     public void SetTankController(PlayerTankController tankController)
     {
@@ -21,6 +22,7 @@ public class PlayerTankView : MonoBehaviour, IBulletFirer, ITakeDamage
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        IsInvicible = true;
     }
     private void Start()
     {
@@ -48,6 +50,9 @@ public class PlayerTankView : MonoBehaviour, IBulletFirer, ITakeDamage
     }
     private void OnCollisionEnter(Collision collision)
     {
+
+        if (IsInvicible)
+            return;
         if (collision.gameObject.GetComponent<EnemyTankView>())
         {
             TankController.PlayerDead();
@@ -57,6 +62,8 @@ public class PlayerTankView : MonoBehaviour, IBulletFirer, ITakeDamage
 
     public void TakeDamage(BulletModel bulletModel)
     {
+        if (IsInvicible)
+            return;
         TankController.TakeDamage(bulletModel);
     }
 }
