@@ -14,7 +14,6 @@ public class EnemyTankFightState : EnemyTankState, IBulletFirer
         base.OnStateEnter();
         playerTank = tankView.PlayerTank;
         cancellationTokenSource = new CancellationTokenSource();
-        Debug.Log("Fight");
         FireBullet();
     }
     private void Update()
@@ -39,7 +38,6 @@ public class EnemyTankFightState : EnemyTankState, IBulletFirer
     {
         base.OnStateExit();
         cancellationTokenSource.Cancel();
-        Debug.Log("No more Fight!");
     }
 #if UNITY_EDITOR
     [UnityEditor.InitializeOnLoadMethod]
@@ -53,7 +51,7 @@ public class EnemyTankFightState : EnemyTankState, IBulletFirer
                     change == UnityEditor.PlayModeStateChange.ExitingEditMode
                 )
                 {
-                    cancellationTokenSource.Cancel();
+                    cancellationTokenSource?.Cancel();
                 }
             };
     }

@@ -32,15 +32,12 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
         DestoryEverything.Instance.EnemyTanks.Add(this);
         ChangeState(startState);
         EventService.Instance.PlayerTankSpawned += SetPlayerTank;
+        EventService.Instance.PlayerTankSpawned += TankController.ChangeStateBasedOnPlayer;
     }
 
     public void SetPlayerTank()
     {
         PlayerTank = TankService.Instance.PlayerTank;
-    }
-    private void Update()
-    {
-        TankController.ChangeStateBasedOnPlayer();
     }
     public void ChangeState(EnemyTankState state)
     {
@@ -56,19 +53,5 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
     {
         TankController.TakeDamage(bulletModel.Power);
     }
-    void OnDrawGizmos()
-    {
-        if (!UnityEditor.EditorApplication.isPlaying)
-        {
-            return;
-        }
-
-        if (TankController ==  null)
-        {
-            return;
-        }
-        Debug.Log("Draw");
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, TankController.tankModel.FightRadius);
-    }
+    
 }

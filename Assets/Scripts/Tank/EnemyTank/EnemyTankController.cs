@@ -1,15 +1,18 @@
 
-using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyTankController 
 {
     public EnemyTankModel tankModel;
     public EnemyTankView tankView;
+    private CancellationTokenSource cancellationTokenSource;
     public EnemyTankController(EnemyTankModel tankModel, EnemyTankView tankView)
     {
         this.tankModel = tankModel;
         this.tankView = tankView;
+        cancellationTokenSource = new CancellationTokenSource();
     }
 
     public void TakeDamage(int power)
@@ -21,29 +24,46 @@ public class EnemyTankController
         }
     }
 
-    public void ChangeStateBasedOnPlayer()
+    public async void ChangeStateBasedOnPlayer()
     {
-        if (tankView.PlayerTank == null)
-            return;
-        float distanceToPlayer = Vector3.Distance(tankView.transform.position, tankView.PlayerTank.transform.position);
-        if (distanceToPlayer > tankModel.FightRadius && distanceToPlayer <= tankModel.ChaseRadius && tankView.currentState != tankView.chaseState)
+        try
         {
-            if(tankView.currentState == tankView.fightState)
+            if (tankView.PlayerTank == null)
+                return;
+            float distanceToPlayer = Vector3.Distance(tankView.transform.position, tankView.PlayerTank.transform.position);
+            if (distanceToPlayer > tankModel.FightRadius && distanceToPlayer <= tankModel.ChaseRadius && tankView.currentState != tankView.chaseState)
+            {
+                tankView.ChangeState(tankView.chaseState);
+            }
+            else if (distanceToPlayer <= tankModel.FightRadius && tankView.currentState != tankView.fightState)
+            { 
+                tankView.ChangeState(tankView.fightState); 
+            }            
+            else if (distanceToPlayer > tankModel.ChaseRadius && tankView.currentState != tankView.petrolState)
             {
                 EventService.Instance.OnPlayerEscapeFromChasingTank?.Invoke();
+                tankView.ChangeState(tankView.petrolState);
             }
-            tankView.ChangeState(tankView.chaseState);
+            await Task.Delay(100,cancellationTokenSource.Token);
+            ChangeStateBasedOnPlayer();
         }
-        else if (distanceToPlayer <= tankModel.FightRadius && tankView.currentState != tankView.fightState)
-            tankView.ChangeState(tankView.fightState);
-        else if (distanceToPlayer > tankModel.ChaseRadius && tankView.currentState != tankView.petrolState)
-            tankView.ChangeState(tankView.petrolState);
+        catch (TaskCanceledException) 
+        {
+            
+        }
     }
+
 
     public void TankDestroy()
     {
-        tankView.currentState.OnStateExit();
+        AsyncCleanup();
         DestoryEverything.Instance.DestroyGameObject(tankView.gameObject);
+    }
+
+    public void AsyncCleanup()
+    {
+        tankView.currentState.OnStateExit();
+        cancellationTokenSource.Cancel();
     }
 
     public Quaternion RotateTank(Vector3 targetPos)
