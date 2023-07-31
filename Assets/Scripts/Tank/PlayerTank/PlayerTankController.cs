@@ -15,7 +15,6 @@ public class PlayerTankController
     {
         TankModel = _tankModel;
         TankView = GameObject.Instantiate<PlayerTankView>(_tankView,pos,_tankView.transform.rotation);
-        
         TankView.SetTankController(this);
     }
 

@@ -13,7 +13,7 @@ public class PlayerTankView : MonoBehaviour, IBulletFirer, ITakeDamage
 
     public PlayerTankModel tankModel;
 
-    public bool IsInvicible ;
+    public bool IsInvicible;
 
     public void SetTankController(PlayerTankController tankController)
     {
@@ -22,7 +22,7 @@ public class PlayerTankView : MonoBehaviour, IBulletFirer, ITakeDamage
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        IsInvicible = true;
+        IsInvicible = false;
     }
     private void Start()
     {

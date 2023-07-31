@@ -9,6 +9,8 @@ public class FollowPlayer : MonoBehaviour
 
     private Vector3 playerOffset;
 
+    private Vector3 playerPos;
+
     private void Awake()
     {
         playerSpawned = false;
@@ -22,14 +24,14 @@ public class FollowPlayer : MonoBehaviour
     {
         playerSpawned = true;
         playerTank = TankService.Instance.PlayerTank;
-        Vector3 playerPos = playerTank.transform.position;
+        playerPos = playerTank.transform.position;
         playerOffset = playerPos - transform.position;
     }
 
     void LateUpdate()
     {
         if (!playerSpawned) { return; }
-        Vector3 playerPos = playerTank.transform.position;
+        playerPos = playerTank.transform.position;
         transform.position = playerPos - playerOffset;
     }
 }

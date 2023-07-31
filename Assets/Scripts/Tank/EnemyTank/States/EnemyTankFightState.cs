@@ -37,23 +37,8 @@ public class EnemyTankFightState : EnemyTankState, IBulletFirer
     public override void OnStateExit()
     {
         base.OnStateExit();
-        cancellationTokenSource.Cancel();
+        cancellationTokenSource?.Cancel();
+        cancellationTokenSource?.Dispose();
     }
-#if UNITY_EDITOR
-    [UnityEditor.InitializeOnLoadMethod]
-    private static void OnLoad()
-    {
-        UnityEditor.EditorApplication.playModeStateChanged +=
-            (change) =>
-            {
-                if (
-                    change == UnityEditor.PlayModeStateChange.ExitingPlayMode ||
-                    change == UnityEditor.PlayModeStateChange.ExitingEditMode
-                )
-                {
-                    cancellationTokenSource?.Cancel();
-                }
-            };
-    }
-#endif
+
 }

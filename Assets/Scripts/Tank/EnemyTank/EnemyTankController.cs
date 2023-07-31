@@ -63,7 +63,8 @@ public class EnemyTankController
     public void AsyncCleanup()
     {
         tankView.currentState.OnStateExit();
-        cancellationTokenSource.Cancel();
+        cancellationTokenSource?.Cancel();
+        cancellationTokenSource?.Dispose();
     }
 
     public Quaternion RotateTank(Vector3 targetPos)

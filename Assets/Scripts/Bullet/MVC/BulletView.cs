@@ -1,6 +1,4 @@
 
-using Newtonsoft.Json.Bson;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class BulletView : MonoBehaviour

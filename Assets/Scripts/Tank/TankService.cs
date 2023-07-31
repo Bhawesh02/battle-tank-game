@@ -19,7 +19,6 @@ public class TankService : MonoSingletonGeneric<TankService>
     void Start()
     {
         cancellationTokenSource = new CancellationTokenSource();
-
         SpawnPlayerTank();
     }
 
@@ -57,7 +56,8 @@ public class TankService : MonoSingletonGeneric<TankService>
                     {
                         enemyTankView.TankController.AsyncCleanup();
                     }
-                    Instance.cancellationTokenSource.Cancel();
+                    Instance.cancellationTokenSource?.Cancel();
+                    Instance.cancellationTokenSource?.Dispose();
                 }
             };
     }

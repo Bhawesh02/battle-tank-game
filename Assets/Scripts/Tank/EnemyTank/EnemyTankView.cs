@@ -41,10 +41,7 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
     }
     public void ChangeState(EnemyTankState state)
     {
-        if (currentState != null)
-        {
-            currentState.OnStateExit();
-        }
+        currentState?.OnStateExit();
         currentState = state;
         currentState.OnStateEnter();
     }
