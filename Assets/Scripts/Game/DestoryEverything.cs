@@ -27,6 +27,8 @@ public class DestoryEverything : MonoSingletonGeneric<DestoryEverything>
         {
             await Task.Delay(500);
             DestroyGameObject(PlayerTank.gameObject);
+            await Task.Delay(2000);
+
             foreach (EnemyTankView EnemyTank in EnemyTanks)
             {
                 EnemyTank.TankController.TankDestroy();
@@ -53,7 +55,7 @@ public class DestoryEverything : MonoSingletonGeneric<DestoryEverything>
         try {
             Vector3 explosionPos = gameObject.transform.position;
             Destroy(gameObject);
-            ParticleSystem explosion = Instantiate<ParticleSystem>(TankExplosion, explosionPos, TankExplosion.transform.rotation);
+            ParticleSystem explosion = Instantiate(TankExplosion, explosionPos, TankExplosion.transform.rotation);
             explosion.Play();
             await Task.Delay(timeForTankExplosion, cancellationTokenSource.Token);
             Destroy(explosion.gameObject);

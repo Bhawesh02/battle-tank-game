@@ -31,6 +31,7 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
         TankController = new(model, this);
         DestoryEverything.Instance.EnemyTanks.Add(this);
         ChangeState(startState);
+        TankController.ChangeToPetrolState();
         EventService.Instance.PlayerTankSpawned += SetPlayerTank;
         EventService.Instance.PlayerTankSpawned += TankController.ChangeStateBasedOnPlayer;
         EventService.Instance.OnPlayerDead += EnemyTankView_OnPlayerDead;
@@ -57,8 +58,10 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
         TankController.TakeDamage(bulletModel.Power);
     }
 
+
     private void OnDestroy()
     {
+        currentState.OnStateExit();
         EventService.Instance.PlayerTankSpawned -= SetPlayerTank;
         EventService.Instance.PlayerTankSpawned -= TankController.ChangeStateBasedOnPlayer;
         EventService.Instance.OnPlayerDead -= EnemyTankView_OnPlayerDead;

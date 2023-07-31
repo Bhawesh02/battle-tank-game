@@ -35,8 +35,8 @@ public class EnemyTankFightState : EnemyTankState, IBulletFirer
     }
     public override void OnStateExit()
     {
-        base.OnStateExit();
         cancellationTokenSource?.Cancel();
+        base.OnStateExit();
     }
 
 }

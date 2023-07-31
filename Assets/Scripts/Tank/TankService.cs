@@ -52,12 +52,8 @@ public class TankService : MonoSingletonGeneric<TankService>
                     change == UnityEditor.PlayModeStateChange.ExitingEditMode
                 )
                 {
-                    foreach (EnemyTankView enemyTankView in Instance.EnemyTanks)
-                    {
-                        enemyTankView.TankController.AsyncCleanup();
-                    }
+                    
                     Instance.cancellationTokenSource?.Cancel();
-                    Instance.cancellationTokenSource?.Dispose();
                 }
             };
     }

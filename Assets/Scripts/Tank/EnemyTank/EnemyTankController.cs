@@ -1,4 +1,5 @@
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -23,7 +24,18 @@ public class EnemyTankController
             TankDestroy();
         }
     }
-
+    public async void ChangeToPetrolState()
+    {
+        try
+        {
+            await Task.Delay(2000, cancellationTokenSource.Token);
+            tankView.ChangeState(tankView.petrolState);
+        }
+        catch (OperationCanceledException)
+        {
+            //To stop Error in Inspector
+        }
+    }
     public async void ChangeStateBasedOnPlayer()
     {
         try
@@ -56,16 +68,9 @@ public class EnemyTankController
 
     public void TankDestroy()
     {
-        AsyncCleanup();
         DestoryEverything.Instance.DestroyGameObject(tankView.gameObject);
     }
 
-    public void AsyncCleanup()
-    {
-        tankView.currentState.OnStateExit();
-        cancellationTokenSource?.Cancel();
-        cancellationTokenSource?.Dispose();
-    }
 
     public Quaternion RotateTank(Vector3 targetPos)
     {
