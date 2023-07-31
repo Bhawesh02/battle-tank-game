@@ -9,5 +9,7 @@ public class SingletonGeneric<T> where T: class, new()
             return instance;
         }
     }
+
+    protected SingletonGeneric() { }
     
 }

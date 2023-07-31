@@ -17,7 +17,7 @@ public class BulletService : MonoSingletonGeneric<BulletService>
     private BulletPoolService bulletPool;
     private void Start()
     {
-        bulletPool = new();
+        bulletPool = BulletPoolService.Instance;
         EventService.Instance.NewBulletCreated += BulletService_NewBulletCreated;
     }
 

@@ -1,7 +1,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class EnemyTankFightState : EnemyTankState, IBulletFirer
 {
@@ -38,7 +37,6 @@ public class EnemyTankFightState : EnemyTankState, IBulletFirer
     {
         base.OnStateExit();
         cancellationTokenSource?.Cancel();
-        cancellationTokenSource?.Dispose();
     }
 
 }

@@ -33,6 +33,7 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
         ChangeState(startState);
         EventService.Instance.PlayerTankSpawned += SetPlayerTank;
         EventService.Instance.PlayerTankSpawned += TankController.ChangeStateBasedOnPlayer;
+        EventService.Instance.OnPlayerDead += EnemyTankView_OnPlayerDead;
     }
 
     public void SetPlayerTank()
@@ -44,6 +45,11 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
         currentState?.OnStateExit();
         currentState = state;
         currentState.OnStateEnter();
+    }
+
+    private void EnemyTankView_OnPlayerDead()
+    {
+        ChangeState(idleState);
     }
 
     public void TakeDamage(BulletModel bulletModel)

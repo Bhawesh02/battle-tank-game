@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    private bool playerSpawned;
+    private bool playerInScene;
 
     private PlayerTankView playerTank;
 
@@ -13,16 +13,21 @@ public class FollowPlayer : MonoBehaviour
 
     private void Awake()
     {
-        playerSpawned = false;
+        playerInScene = false;
     }
 
     private void Start()
     {
         EventService.Instance.PlayerTankSpawned += FollowPlayer_PlayerTankSpawned;
+        EventService.Instance.OnPlayerDead += FollowPlayer_OnPlayerDead;
+    }
+    private void FollowPlayer_OnPlayerDead()
+    {
+        playerInScene = false;
     }
     private void FollowPlayer_PlayerTankSpawned()
     {
-        playerSpawned = true;
+        playerInScene = true;
         playerTank = TankService.Instance.PlayerTank;
         playerPos = playerTank.transform.position;
         playerOffset = playerPos - transform.position;
@@ -30,7 +35,7 @@ public class FollowPlayer : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!playerSpawned) { return; }
+        if (!playerInScene) { return; }
         playerPos = playerTank.transform.position;
         transform.position = playerPos - playerOffset;
     }

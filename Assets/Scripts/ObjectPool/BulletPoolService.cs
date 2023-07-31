@@ -1,12 +1,21 @@
-using UnityEngine;
 
-public class BulletPoolService : PoolService<BulletController>
+public class BulletPoolService : SingletonGeneric<BulletPoolService>
 {
+    private readonly BulletPool bulletPool = new();
 
     public BulletController GetBullet()
     {
-        return GetItem();
+        return bulletPool.GetItem();
     }
+
+    public void ReturnItem(BulletController bulletController)
+    {
+        bulletPool.ReturnItem(bulletController);
+    }
+}
+
+public class BulletPool : PoolService<BulletController>
+{
     protected override BulletController CreateItem()
     {
         BulletController bulletControler = new(BulletService.Instance.BulletModel, BulletService.Instance.BulletPrefab);
@@ -18,4 +27,4 @@ public class BulletPoolService : PoolService<BulletController>
         base.ReturnItem(bulletController);
         bulletController.BulletView.gameObject.SetActive(false);
     }
-}
+} 

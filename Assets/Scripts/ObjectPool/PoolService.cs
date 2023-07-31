@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 
-public class PoolService<T> : SingletonGeneric<PoolService<T>> where T : class
+public abstract class PoolService<T> 
 {
 
     private class PooledItem<t>
@@ -36,7 +36,7 @@ public class PoolService<T> : SingletonGeneric<PoolService<T>> where T : class
         return item.Item;
     }
 
-    protected virtual T CreateItem() { return null; }
+    protected abstract T CreateItem();
 
     public virtual void ReturnItem(T item)
     {
