@@ -56,5 +56,11 @@ public class EnemyTankView : MonoBehaviour, ITakeDamage
     {
         TankController.TakeDamage(bulletModel.Power);
     }
-    
+
+    private void OnDestroy()
+    {
+        EventService.Instance.PlayerTankSpawned -= SetPlayerTank;
+        EventService.Instance.PlayerTankSpawned -= TankController.ChangeStateBasedOnPlayer;
+        EventService.Instance.OnPlayerDead -= EnemyTankView_OnPlayerDead;
+    }
 }

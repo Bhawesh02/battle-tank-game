@@ -39,4 +39,10 @@ public class FollowPlayer : MonoBehaviour
         playerPos = playerTank.transform.position;
         transform.position = playerPos - playerOffset;
     }
+
+    private void OnDestroy()
+    {
+        EventService.Instance.PlayerTankSpawned -= FollowPlayer_PlayerTankSpawned;
+        EventService.Instance.OnPlayerDead -= FollowPlayer_OnPlayerDead;
+    }
 }
