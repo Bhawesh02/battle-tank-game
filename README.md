@@ -36,4 +36,4 @@ As a solo developer, I've poured my passion and skills into this project. While 
 
 ## Contact
 
-Connect with me on LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/bhawesh-agarwal-70b98b113/).
+Connect with me on LinkedIn: [Bhawesh Agarwal](https://www.linkedin.com/in/bhawesh-agarwal-70b98b113/).
