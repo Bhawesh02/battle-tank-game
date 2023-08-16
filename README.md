@@ -22,14 +22,6 @@ This repository showcases the development of an exciting Battle Tank Game, highl
 
 Check out my detailed [devlog](https://www.linkedin.com/posts/bhawesh-agarwal-70b98b113_unity-202231f1-dx11-battle-tank-game-activity-7091700328072429569-o8iu?utm_source=share&utm_medium=member_desktop) for an in-depth look into the development journey. I cover topics such as architectural choices, design patterns, optimization techniques, and more.
 
-## Getting Started
-
-To experience the Battle Tank Game:
-
-1. Clone this repository to your local machine.
-2. Open the project in Unity.
-3. Explore the codebase and assets to learn about the game's mechanics and design.
-
 ## Contributions
 
 As a solo developer, I've poured my passion and skills into this project. While I'm not actively seeking contributions, I appreciate feedback and suggestions. Feel free to open an issue for discussions or questions!
