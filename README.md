@@ -22,6 +22,11 @@ This repository showcases the development of an exciting Battle Tank Game, highl
 
 Check out my detailed [devlog](https://www.linkedin.com/posts/bhawesh-agarwal-70b98b113_unity-202231f1-dx11-battle-tank-game-activity-7091700328072429569-o8iu?utm_source=share&utm_medium=member_desktop) for an in-depth look into the development journey. I cover topics such as architectural choices, design patterns, optimization techniques, and more.
 
+
+## GamePlay
+
+[Video](https://www.loom.com/share/45295afc16414accaf139d47cf1355dd)
+
 ## Contributions
 
 As a solo developer, I've poured my passion and skills into this project. While I'm not actively seeking contributions, I appreciate feedback and suggestions. Feel free to open an issue for discussions or questions!
