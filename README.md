@@ -27,6 +27,12 @@ Check out my detailed [devlog](https://www.linkedin.com/posts/bhawesh-agarwal-70
 
 [Video](https://www.loom.com/share/45295afc16414accaf139d47cf1355dd)
 
+### Screen Shots
+![image](https://github.com/Bhawesh02/battle-tank-game/assets/93391124/d0e5f39b-43ed-4a10-b9c9-7f9a9fbc7d55)
+![image](https://github.com/Bhawesh02/battle-tank-game/assets/93391124/19ff8d8d-f346-421a-a887-9562f0572651)
+
+
+
 ## Contributions
 
 As a solo developer, I've poured my passion and skills into this project. While I'm not actively seeking contributions, I appreciate feedback and suggestions. Feel free to open an issue for discussions or questions!
